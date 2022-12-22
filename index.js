@@ -37,6 +37,20 @@ function createCrateA(width, height, depth, posX, posY, posZ, rotX, rotY, rotZ){
     scene.add(crateAMesh)
 }
 
+// 5.d. Crate B
+function createCrateB(width, height, depth, posX, posY, posZ, rotX, rotY, rotZ){
+    let crateBGeo = new THREE.BoxGeometry(width, height, depth)
+    let crateBMat = new THREE.MeshPhongMaterial({
+        map: textureLoader.load("./assets/texture/crate2.jpeg")
+    })
+    let crateBMesh = new THREE.Mesh(crateBGeo, crateBMat)
+    crateBMesh.position.set(posX, posY, posZ)
+    crateBMesh.rotation.set(rotX, rotY, rotZ)
+    crateBMesh.castShadow = true
+    crateBMesh.receiveShadow = true
+    scene.add(crateBMesh)
+}
+
 // 4.a. Ambient Light
 function createAmbientLight(){
     let light = new THREE.AmbientLight("#404040")
@@ -84,6 +98,8 @@ function init() {
     createCrateA(10, 10, 10, -30, 0, -40, 0, 0, 0)
     createCrateA(5, 5, 5, -30, -2, -48, Math.PI/6, 0, 0)
     createCrateA(10, 15, 10, -40, 2.5, 30, 0, -Math.PI/4, 0)
+    createCrateB(20, 20, 20, 30, 5, 40, 0, Math.PI/3, 0)
+    createCrateB(40, 15, 30, 30, 2.5, -60, 0, -Math.PI/6, 0)
 }
 
 function keyboardListener(event){
