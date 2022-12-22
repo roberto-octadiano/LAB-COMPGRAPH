@@ -1,7 +1,7 @@
 import * as THREE from "./three.js/build/three.module.js"
 import {OrbitControls} from "./three.js/examples/jsm/controls/OrbitControls.js"
 
-var scene, renderer, control, mouse
+var scene, renderer, control, mouse, textureLoader
 var currentCam, fixedCam, freeCam
 
 // 5.a. Ground Object
@@ -12,7 +12,7 @@ function createGround(){
     })
     let groundMesh = new THREE.Mesh(groundGeo, groundMat)
     groundMesh.position.set(0, -5, 0)
-    groundMesh.setRotationFromEuler(-Math.PI/2, 0, 0)
+    groundMesh.rotation.set(-Math.PI/2, 0, 0)
     groundMesh.receiveShadow = true
     scene.add(groundMesh)
 }
@@ -21,6 +21,20 @@ function createGround(){
 function createBalloon(){
     // load model
     // cast and recieve shadow
+}
+
+// 5.c. Crate A
+function createCrateA(width, height, depth, posX, posY, posZ, rotX, rotY, rotZ){
+    let crateAGeo = new THREE.BoxGeometry(width, height, depth)
+    let crateAMat = new THREE.MeshPhongMaterial({
+        map: textureLoader.load("./assets/texture/crate1.jpeg")
+    })
+    let crateAMesh = new THREE.Mesh(crateAGeo, crateAMat)
+    crateAMesh.position.set(posX, posY, posZ)
+    crateAMesh.rotation.set(rotX, rotY, rotZ)
+    crateAMesh.castShadow = true
+    crateAMesh.receiveShadow = true
+    scene.add(crateAMesh)
 }
 
 // 4.a. Ambient Light
@@ -56,6 +70,8 @@ function init() {
     renderer.shadowMap.enabled = true
     document.body.appendChild(renderer.domElement)
 
+    textureLoader = new THREE.TextureLoader()
+
     control = new OrbitControls(freeCam, renderer.domElement)
     currentCam = fixedCam
 
@@ -65,6 +81,8 @@ function init() {
     createSpotLight(0.5, 0, 200, 0, Math.PI/4 + Math.PI/6)
     createGround()
     createBalloon()
+    createCrateA(10, 10, 10, -30, 0, -40, 0, 0, 0)
+    createCrateA(5, 5, 5, -30, -2, -48, Math.PI/6, 0, 0)
 }
 
 function keyboardListener(event){
