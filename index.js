@@ -83,6 +83,7 @@ function init() {
     createBalloon()
     createCrateA(10, 10, 10, -30, 0, -40, 0, 0, 0)
     createCrateA(5, 5, 5, -30, -2, -48, Math.PI/6, 0, 0)
+    createCrateA(10, 15, 10, -40, 2.5, 30, 0, -Math.PI/4, 0)
 }
 
 function keyboardListener(event){
